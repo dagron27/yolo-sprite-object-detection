@@ -1,0 +1,37 @@
+name: CI
+
+# Run on every push (all branches, no filter) and allow manual runs.
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # The full 2,500-image dataset is committed (see README "Dataset"),
+      # but a full re-execution here would mean retraining a YOLO-style
+      # model on every push -- a real time/resource cost this workflow
+      # deliberately doesn't pay. This step instead converts the notebook
+      # to a plain script and compiles it, which catches syntax errors in
+      # every cell without needing to actually run the training.
+      - name: Syntax-check notebook (convert + compile, no execution)
+        run: |
+          python -m nbconvert --to script notebooks/assignment_5.ipynb --output ci_syntax_check
+          python -m py_compile notebooks/ci_syntax_check.py
+          rm -f notebooks/ci_syntax_check.py

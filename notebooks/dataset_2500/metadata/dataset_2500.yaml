@@ -1,0 +1,7 @@
+names:
+- target
+- distractor
+nc: 2
+test: dataset_2500/datasplits/test.txt
+train: dataset_2500/datasplits/train.txt
+val: dataset_2500/datasplits/val.txt
