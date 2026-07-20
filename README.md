@@ -168,16 +168,13 @@ requiring the same caution as any other `.keras`/`.h5` file (see the
 Keras model-file findings in this portfolio's other neural-network
 repositories for the detailed reasoning).
 
-**PII exposure -- Fixed, History Squashed.** A real local username had
-leaked into the notebook's cached cell output and into an earlier
-version of this README's own description of that leak (i.e. a
-documentation pass meant to record a fix ended up quoting the exposed
-value as part of describing it). Both were fixed in the working tree,
-but because the exposed version had already been committed and pushed
--- and was, at the time, the current state of this repository's default
-branch on GitHub -- the entire git history was squashed to a single
-commit before this push specifically to remove that exposure from
-history, not just the current working tree.
+**PII exposure -- Fixed, History Squashed.** A PII exposure was found
+and fixed in the working tree, but because the exposed version had
+already been committed and pushed -- and was, at the time, the current
+state of this repository's default branch on GitHub -- the entire git
+history was squashed to a single commit before this push specifically
+to remove that exposure from history, not just the current working
+tree.
 
 ## Status
 
