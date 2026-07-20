@@ -157,16 +157,27 @@ reasonable future addition if this repository's CI is revisited.
 
 ### Security
 
-No findings. The notebook performs local file I/O against paths derived
-from a fixed project structure (no user/network input), no `eval`/`exec`,
-no subprocess/shell execution, no credentials, and no deserialization of
-untrusted data -- `model.save()`/loading a `.keras` file only ever
-round-trips a model this project trained itself. As with the portfolio's
-other Keras-based projects: if this saved model is ever loaded by code
-outside this repository, treat it as untrusted input requiring the same
-caution as any other `.keras`/`.h5` file (see the Keras model-file
-findings in this portfolio's other neural-network repositories for the
-detailed reasoning).
+**Code-level findings: none.** The notebook performs local file I/O against
+paths derived from a fixed project structure (no user/network input), no
+`eval`/`exec`, no subprocess/shell execution, no credentials, and no
+deserialization of untrusted data -- `model.save()`/loading a `.keras`
+file only ever round-trips a model this project trained itself. As with
+the portfolio's other Keras-based projects: if this saved model is ever
+loaded by code outside this repository, treat it as untrusted input
+requiring the same caution as any other `.keras`/`.h5` file (see the
+Keras model-file findings in this portfolio's other neural-network
+repositories for the detailed reasoning).
+
+**PII exposure -- Fixed, History Squashed.** A real local username had
+leaked into the notebook's cached cell output and into an earlier
+version of this README's own description of that leak (i.e. a
+documentation pass meant to record a fix ended up quoting the exposed
+value as part of describing it). Both were fixed in the working tree,
+but because the exposed version had already been committed and pushed
+-- and was, at the time, the current state of this repository's default
+branch on GitHub -- the entire git history was squashed to a single
+commit before this push specifically to remove that exposure from
+history, not just the current working tree.
 
 ## Status
 
